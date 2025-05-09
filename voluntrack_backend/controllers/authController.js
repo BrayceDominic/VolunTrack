@@ -6,14 +6,14 @@ const { sendPasswordResetEmail } = require('../emailService');
 
 
 const registerUser = async (req, res) => {
-  const { username, password, role, email, name } = req.body;
+  const { username, password, role, email, name, phone } = req.body;
 
   try {
     const existingUser = await User.findUserByEmail(email);
     if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.createUser( username, hashedPassword, role, email, name);
+    await User.createUser( username, hashedPassword, role, email, name, phone);
 
     const token = jwt.sign({ email, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.status(201).json({ message: 'User registered', token,
@@ -22,6 +22,7 @@ const registerUser = async (req, res) => {
       name: User.name,
       email: User.email,
       role: User.role,
+      phone: User.phone,
     }, });
   } catch (err) {
     res.status(500).json({ error: 'Registration failed', details: err.message });

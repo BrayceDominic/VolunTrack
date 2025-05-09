@@ -14,6 +14,7 @@ const app = () => {
   const [role, setRole] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const router = useRouter();
 
 const handleRegister = async () => {
@@ -23,6 +24,7 @@ const handleRegister = async () => {
     role,
     email,
     name,
+    phone,
   };
 
   try {
@@ -113,6 +115,13 @@ const handleRegister = async () => {
         value={name} 
         onChangeText={setName} 
       />
+      <TextInput 
+        style={styles.input} 
+        placeholder="Phone" 
+        keyboardType="number" 
+        value={phone} 
+        onChangeText={setPhone} 
+      />
       
 
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
@@ -132,7 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 20,
     backgroundColor: 'tan',
-    marginTop: 25,
+    // marginTop: 25,
   },
   title: {
     fontSize: 28,
@@ -145,13 +154,13 @@ const styles = StyleSheet.create({
     width: 100, // Adjust width
     height: 100, // Adjust height
     // resizeMode: "contain",
-    marginTop: 25,
+    marginTop: 2,
     marginLeft: 130,
     marginBottom: -15,
     borderRadius: 70,
     },
   drawerItem: {
-    top: -230,
+    top: -170,
   },
   input: {
     height: 50,
