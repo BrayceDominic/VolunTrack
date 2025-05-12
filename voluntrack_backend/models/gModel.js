@@ -18,3 +18,13 @@ exports.getGradesBySupervisor = (supervisor_id) => {
     [supervisor_id]
   );
 };
+
+exports.getGradesByVolunteer = (volunteer_id) => {
+  return db.execute(
+    `SELECT g.score, g.comments, t.title AS task_title
+     FROM grades g
+     JOIN tasks t ON g.task_id = t.id
+     WHERE g.volunteer_id = ?`,
+    [volunteer_id]
+  );
+};

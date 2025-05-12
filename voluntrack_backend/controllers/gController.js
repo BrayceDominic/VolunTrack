@@ -17,3 +17,12 @@ exports.getGradesBySupervisor = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.getGradesByVolunteer = async (req, res) => {
+  try {
+    const [grades] = await Grade.getGradesByVolunteer(req.params.volunteerId);
+    res.status(200).json(grades);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

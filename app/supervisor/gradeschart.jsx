@@ -14,6 +14,7 @@ const App = () => {
   const [scores, setScores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const [taskDetails, setTaskDetails] = useState([]); // new
 
   useEffect(() => {
     fetch(`http://192.168.101.180:5000/api/grades/supervisor/${supervisorId}`)
@@ -23,6 +24,7 @@ const App = () => {
         const values = json.map(item => item.score);
         setLabels(names);
         setScores(values);
+        setTaskDetails(json); // store full task info
         setLoading(false);
       })
       .catch(error => {
@@ -48,7 +50,7 @@ const App = () => {
           datasets: [{ data: scores }]
         }}
         width={screenWidth - 30}
-        height={790}
+        height={750}
         fromZero
         showValuesOnTopOfBars
         withInnerLines
@@ -62,7 +64,7 @@ const App = () => {
           color: (opacity = 1) => `rgba(0, 65, 88, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(0, 65, 88, ${opacity})`,
           propsForBackgroundLines: {
-            stroke: 'rgba(0,0,0,0.1)',
+            // stroke: 'rgba(0,0,0,0.1)',
             strokeDasharray: '0',
           },
         }}
@@ -97,6 +99,16 @@ const App = () => {
         }
         onDataPointClick={({ index }) => handleBarPress(index)}
       />
+
+      <Text style={styles.subHeader}>Task Performance Details</Text>
+      {taskDetails.map((item, index) => (
+        <View key={index} style={styles.taskBox}>
+          <Text style={styles.taskTitle}>{item.volunteer_name}</Text>
+          <Text style={styles.taskTitle}>{item.task_title}</Text>
+          <Text style={styles.taskScore}>Score: {item.score}%</Text>
+          <Text style={styles.taskComment}>Comment: {item.comments}</Text>
+        </View>
+      ))}
     </ScrollView>
   );
 };
@@ -113,6 +125,38 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#004158',
     marginBottom: 20,
+  },
+  subHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#004158',
+    marginVertical: 20,
+  },
+  taskBox: {
+    backgroundColor: '#ffffff',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 15,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  taskTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#004158',
+  },
+  taskScore: {
+    fontSize: 14,
+    color: '#006064',
+    marginTop: 4,
+  },
+  taskComment: {
+    fontSize: 14,
+    color: '#333',
+    marginTop: 2,
   },
 });
 

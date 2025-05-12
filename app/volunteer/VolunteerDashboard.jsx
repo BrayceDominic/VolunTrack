@@ -103,6 +103,14 @@ const App = () => {
       },
     },
     {
+      icon: "bar-chart",
+      title: "Statistics",
+      onPress: async () => {
+        const id = await AsyncStorage.getItem("userId");
+        router.push({ pathname: "/volunteer/statistics", params: { id, role: "volunteer" } });
+      },
+    },
+    {
       icon: "logout",
       title: "Logout",
       onPress: async () => {
@@ -166,7 +174,7 @@ const App = () => {
                     style={styles.quickAccessCard}
                     onPress={link.onPress}
                   >
-                    <Icon name={link.icon} size={24} color="#fff" />
+                    <Icon name={link.icon} size={30} color="#004158" />
                     <Text style={styles.quickAccessText}>{link.title}</Text>
                   </TouchableOpacity>
                 ))}
@@ -254,7 +262,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   quickAccessCard: {
-    backgroundColor: "#004158",
+    backgroundColor: "#ffffff",
     borderRadius: 10,
     padding: 14,
     flex: 1,
@@ -263,7 +271,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   quickAccessText: {
-    color: "#fff",
+    color: "#004158",
     fontSize: 14,
     fontWeight: "500",
     marginTop: 5,
