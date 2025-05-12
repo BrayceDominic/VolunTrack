@@ -35,7 +35,6 @@ const styles =  StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'tan',
-    marginTop: 25,
     alignItems: 'center',
   },
   image: {

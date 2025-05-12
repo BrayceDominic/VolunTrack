@@ -240,7 +240,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, marginTop: 25, backgroundColor: "tan" },
+  container: { flex: 1, backgroundColor: "tan" },
   feedContainer: { padding: 16, paddingBottom: 100 },
   welcomeText: {
     fontSize: 24,
@@ -253,13 +253,14 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 16,
+    marginBottom: 0,
     color: "#004158",
+    textAlign: "center",
   },
   volunteerCard: {
     backgroundColor: "#f0f4ff",
-    padding: 20,
-    borderRadius: 12,
+    padding: 10,
+    borderRadius: 15,
     marginBottom: 12,
     marginTop: 12,
     shadowColor: "#000",
@@ -282,14 +283,14 @@ const styles = StyleSheet.create({
   quickAccessContainer: {
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 10,
-    paddingBottom: 20,
+    paddingHorizontal: 5,
+    paddingBottom: 10,
   },
   quickAccessButton: {
     backgroundColor: "#f0f4ff",
     flex: 1,
     margin: 8,
-    padding: 20,
+    padding: 10,
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
@@ -297,7 +298,7 @@ const styles = StyleSheet.create({
     maxWidth: "45%",
     shadowColor: "#004158",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 5,
   },

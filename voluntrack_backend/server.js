@@ -10,6 +10,7 @@ const tRoutes = require('./routes/tRoutes');
 const fRoutes = require('./routes/fRoutes');
 const aRoutes = require('./routes/aRoutes');
 const gRoutes = require('./routes/gRoutes');
+const passwordRoutes = require("./routes/passwordRoutes");
 
 
 const app = express();
@@ -27,6 +28,8 @@ app.use('/api/tasks', tRoutes);
 app.use('/api', fRoutes);
 app.use('/api/attendance', aRoutes);
 app.use('/api/grades', gRoutes);
+app.use("/api/password", passwordRoutes);
+
 
 
 

@@ -58,7 +58,7 @@ const app = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#004158", padding: 16, marginTop: 25 },
+  container: { flex: 1, backgroundColor: "#004158", padding: 16},
   header: { fontSize: 22, fontWeight: "bold", color: "white", marginBottom: 25, textAlign: "center" },
   detailBox: {
     backgroundColor: "tan",
