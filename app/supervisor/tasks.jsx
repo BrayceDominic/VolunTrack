@@ -28,7 +28,7 @@ const app = () => {
 
   const fetchVolunteers = async () => {
     try {
-      const response = await axios.get(`http://192.168.101.180:5000/api/supervisors/${supervisor_id}/volunteers`);
+      const response = await axios.get(`http://192.168.100.47:5000/api/supervisors/${supervisor_id}/volunteers`);
       setVolunteers(response.data);
     } catch (error) {
       console.error('Error fetching volunteers:', error);
@@ -37,7 +37,7 @@ const app = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`http://192.168.101.180:5000/api/tasks/${supervisor_id}`);
+      const response = await axios.get(`http://192.168.100.47:5000/api/tasks/${supervisor_id}`);
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -47,7 +47,7 @@ const app = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(`http://192.168.101.180:5000/api/projects/${supervisor_id}`);
+      const response = await axios.get(`http://192.168.100.47:5000/api/projects/${supervisor_id}`);
       setProjects(response.data);
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -62,7 +62,7 @@ const app = () => {
     }
   
     try {
-      const response = await axios.post('http://192.168.101.180:5000/api/tasks/create', {
+      const response = await axios.post('http://192.168.100.47:5000/api/tasks/create', {
         title: newTask,
         description: description,
         due_date: dueDate,
@@ -184,7 +184,7 @@ const app = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, padding: 16, backgroundColor: 'tan', marginTop: 25,
+  container: { flexGrow: 1, padding: 16, backgroundColor: 'tan',
   },
   header: {
     flexDirection: 'row',
@@ -192,7 +192,6 @@ const styles = StyleSheet.create({
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
-    marginTop: 25,
   },
   backButton: { marginRight: 16 },
   headerTitle: { fontSize: 20, fontWeight: 'bold', color: '#004158' },

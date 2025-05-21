@@ -13,7 +13,7 @@ const App = () => {
     useEffect(() => {
         if (supervisor_id) {
             // Fetch feedback for the supervisor
-            axios.get(`http://192.168.101.180:5000/api/feedback/${supervisor_id}`)
+            axios.get(`http://192.168.100.47:5000/api/feedback/${supervisor_id}`)
                 .then(res => setFeedbackList(res.data))
                 .catch(err => console.log('Error fetching feedback:', err));
         }
@@ -53,14 +53,14 @@ const App = () => {
                 reply: replyText
             };
     
-            await axios.post(`http://192.168.101.180:5000/api/reply/${feedback_id}`, payload);
+            await axios.post(`http://192.168.100.47:5000/api/reply/${feedback_id}`, payload);
     
             alert('Reply sent successfully ✅');
     
             // Reset UI and fetch updated feedback
             setReplyText('');
             setActiveReplyId(null);
-            axios.get(`http://192.168.101.180:5000/api/feedback/${supervisor_id}`)
+            axios.get(`http://192.168.100.47:5000/api/feedback/${supervisor_id}`)
                 .then(res => setFeedbackList(res.data));
         } catch (err) {
             console.error('Error submitting reply:', err);

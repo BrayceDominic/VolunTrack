@@ -47,7 +47,7 @@ const AttendanceScreen = () => {
 
   const fetchAttendance = async () => {
     try {
-      const res = await axios.get(`http://192.168.101.180:5000/api/attendance/${supervisorId}`);
+      const res = await axios.get(`http://192.168.100.47:5000/api/attendance/${supervisorId}`);
       setAttendanceRecords(res.data);
     } catch (error) {
       console.error('Error fetching attendance:', error);
@@ -230,7 +230,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     backgroundColor: 'tan',
-    marginTop: 25,
   },
   heading: {
     fontSize: 22,

@@ -56,7 +56,7 @@ const App = () => {
         return;
       }
 
-      const res = await axios.get(`http://192.168.101.180:5000/api/volunteers/${id}`);
+      const res = await axios.get(`http://192.168.100.47:5000/api/volunteers/${id}`);
       setProjects(res.data);
     } catch (err) {
       console.error("❌ Failed to load data", err);
@@ -196,7 +196,7 @@ const App = () => {
           <Ionicons name="person-outline" size={25} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => router.push({ pathname: "/volunteer/help", params: { volunteerId: userId } })}>
-          <Ionicons name="settings-outline" size={25} color="#fff" />
+          <Ionicons name="help-circle" size={28} color="#fff" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -204,7 +204,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, marginTop: 25, backgroundColor: "tan" },
+  container: { flex: 1, backgroundColor: "tan" },
   feedContainer: { padding: 16, paddingBottom: 100 },
   welcomeText: {
     fontSize: 24,

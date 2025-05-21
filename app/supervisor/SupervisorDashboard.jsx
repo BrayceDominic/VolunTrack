@@ -7,9 +7,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   SafeAreaView,
-  ScrollView,
+  TextInput,
   Linking,
-  ImageBackground,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -23,32 +22,33 @@ const App = () => {
   const [userId, setUserId] = useState("");
   const [volunteers, setVolunteers] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const fetchData = async () => {
-    try {
-      const name = await AsyncStorage.getItem("userName");
-      const id = await AsyncStorage.getItem("userId");
-
-      if (name) setUserName(name);
-      if (id) setUserId(id);
-
-      if (!id) {
-        alert("Supervisor ID not found in storage.");
-        return;
-      }
-
-      const res = await axios.get(
-        `http://192.168.101.180:5000/api/supervisors/${id}/volunteers`
-      );
-      setVolunteers(res.data);
-    } catch (err) {
-      console.error("❌ Failed to load data", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const name = await AsyncStorage.getItem("userName");
+        const id = await AsyncStorage.getItem("userId");
+
+        if (name) setUserName(name);
+        if (id) setUserId(id);
+
+        if (!id) {
+          alert("Supervisor ID not found in storage.");
+          return;
+        }
+
+        const res = await axios.get(
+          `http://192.168.100.47:5000/api/supervisors/${id}/volunteers`
+        );
+        setVolunteers(res.data);
+      } catch (err) {
+        console.error("❌ Failed to load data", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchData();
   }, []);
 
@@ -57,68 +57,38 @@ const App = () => {
     {
       icon: "assignment",
       title: "Projects",
-      onPress: async () => {
-        const userId = await AsyncStorage.getItem("userId");
-        router.push({
-          pathname: "/supervisor/projects",
-          params: { id: userId, role: "supervisor" },
-        });
-      },
+      onPress: () =>
+        navigateWithId("/supervisor/projects"),
     },
     {
       icon: "people",
       title: "Attendance",
-      onPress: async () => {
-        const userId = await AsyncStorage.getItem("userId");
-        router.push({
-          pathname: "/supervisor/attendance",
-          params: { id: userId, role: "supervisor" },
-        });
-      },
+      onPress: () =>
+        navigateWithId("/supervisor/attendance"),
     },
     {
       icon: "task",
       title: "Tasks",
-      onPress: async () => {
-        const userId = await AsyncStorage.getItem("userId");
-        router.push({
-          pathname: "/supervisor/tasks",
-          params: { id: userId, role: "supervisor" },
-        });
-      },
+      onPress: () =>
+        navigateWithId("/supervisor/tasks"),
     },
     {
       icon: "feedback",
       title: "Feedback",
-      onPress: async () => {
-        const userId = await AsyncStorage.getItem("userId");
-        router.push({
-          pathname: "/supervisor/feedbacks",
-          params: { id: userId, role: "supervisor" },
-        });
-      },
+      onPress: () =>
+        navigateWithId("/supervisor/feedbacks"),
     },
     {
       icon: "star",
       title: "Rating",
-      onPress: async () => {
-        const userId = await AsyncStorage.getItem("userId");
-        router.push({
-          pathname: "/supervisor/gradingform",
-          params: { id: userId, role: "supervisor" },
-        });
-      },
+      onPress: () =>
+        navigateWithId("/supervisor/gradingform"),
     },
     {
       icon: "bar-chart",
       title: "Statistics",
-      onPress: async () => {
-        const userId = await AsyncStorage.getItem("userId");
-        router.push({
-          pathname: "/supervisor/gradeschart",
-          params: { id: userId, role: "supervisor" },
-        });
-      },
+      onPress: () =>
+        navigateWithId("/supervisor/gradeschart"),
     },
     {
       icon: "logout",
@@ -130,10 +100,19 @@ const App = () => {
     },
   ];
 
+  const navigateWithId = async (pathname) => {
+    const id = await AsyncStorage.getItem("userId");
+    router.push({ pathname, params: { id, role: "supervisor" } });
+  };
+
+  const filteredLinks = drawerLinks.filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const renderQuickAccessItem = ({ item }) => (
     <TouchableOpacity
       style={styles.quickAccessButton}
-      onPress={item.onPress}
+      onPress={item.onPress || (() => router.push(item.route))}
     >
       <Icon name={item.icon} size={30} color="#004158" />
       <Text style={styles.quickAccessButtonText}>{item.title}</Text>
@@ -144,27 +123,49 @@ const App = () => {
     <SafeAreaView style={styles.container}>
       <FlatList
         ListHeaderComponent={
-          <>
-            <Text style={styles.welcomeText}>
-              {userName ? `Welcome, ${userName}!` : "Welcome!"}
-            </Text>
+          <View>
+            <TouchableOpacity
+              style={styles.notificationIcon}
+              onPress={() =>
+                router.push({
+                  pathname: "/supervisor/notifications",
+                  params: { supervisorId: userId },
+                })
+              }
+            >
+              <Ionicons name="notifications-outline" size={28} color="#004158" />
+            </TouchableOpacity>
+
+            <View style={styles.welcomeCard}>
+              <Text style={styles.welcomeText}>
+                👋 {userName ? `Welcome, ${userName}!` : "Welcome!"}
+              </Text>
+            </View>
+
+            <TextInput
+              placeholder="Search Quick Access..."
+              placeholderTextColor="#555"
+              value={searchTerm}
+              onChangeText={setSearchTerm}
+              style={styles.searchBar}
+            />
 
             <Text style={styles.sectionTitle}>Assigned Volunteers</Text>
             {loading && <ActivityIndicator size="large" color="#004158" />}
-          </>
+          </View>
         }
         ListFooterComponent={
-          <>
+          <View>
             <Text style={styles.sectionTitle}>Quick Access</Text>
             <FlatList
-              data={drawerLinks}
+              data={filteredLinks}
               renderItem={renderQuickAccessItem}
               keyExtractor={(item, index) => index.toString()}
               numColumns={2}
               contentContainerStyle={styles.quickAccessContainer}
               scrollEnabled={false}
             />
-          </>
+          </View>
         }
         data={loading ? [] : volunteers}
         renderItem={({ item }) => (
@@ -176,18 +177,18 @@ const App = () => {
             asChild
           >
             <TouchableOpacity style={styles.volunteerCard}>
-              <Text style={styles.volunteerName}>👤   {item.name}</Text>
+              <Text style={styles.volunteerName}>👤 {item.name}</Text>
               <Text
                 style={styles.volunteerEmail}
                 onPress={() => Linking.openURL(`mailto:${item.email}`)}
               >
-                📧    {item.email}
+                📧 {item.email}
               </Text>
               <Text
                 style={styles.volunteerEmail}
                 onPress={() => Linking.openURL(`tel:${item.phone}`)}
               >
-                📞   {item.phone}
+                📞 {item.phone}
               </Text>
             </TouchableOpacity>
           </Link>
@@ -207,16 +208,6 @@ const App = () => {
         <TouchableOpacity
           onPress={() =>
             router.push({
-              pathname: "/supervisor/notifications",
-              params: { supervisorId: userId },
-            })
-          }
-        >
-          <Ionicons name="notifications-outline" size={25} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
-            router.push({
               pathname: "/supervisor/profiles",
               params: { supervisorId: userId },
             })
@@ -232,7 +223,7 @@ const App = () => {
             })
           }
         >
-          <Ionicons name="settings-outline" size={25} color="#fff" />
+          <Ionicons name="help-circle" size={30} color="#fff" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -242,18 +233,41 @@ const App = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "tan" },
   feedContainer: { padding: 16, paddingBottom: 100 },
+  searchBar: {
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    marginHorizontal: 16,
+    marginTop: 20,
+    fontSize: 16,
+    color: "#333",
+    borderColor: "#004158",
+    borderWidth: 1,
+  },
+  welcomeCard: {
+    backgroundColor: "#004158",
+    marginHorizontal: 19,
+    marginTop: 34,
+    borderRadius: 15,
+    padding: 15,
+    shadowColor: "#000",
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 6,
+    elevation: 5,
+  },
   welcomeText: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
-    color: "#004158",
+    color: "#fff",
     textAlign: "center",
-    marginBottom: 10,
-    marginTop: 30,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 0,
+    marginTop: 25,
+    marginBottom: 5,
     color: "#004158",
     textAlign: "center",
   },
@@ -319,6 +333,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     paddingVertical: 10,
     elevation: 5,
+  },
+  notificationIcon: {
+    position: "absolute",
+    top: -10,
+    left: 340,
+    zIndex: 10,
+    backgroundColor: "white",
+    padding: 6,
+    borderRadius: 50,
+    elevation: 3,
   },
 });
 

@@ -20,12 +20,12 @@ const App = () => {
   const [taskModalVisible, setTaskModalVisible] = useState(false);
 
   useEffect(() => {
-    fetch(`http://192.168.101.180:5000/api/supervisors/${supervisorId}/volunteers`)
+    fetch(`http://192.168.100.47:5000/api/supervisors/${supervisorId}/volunteers`)
       .then(res => res.json())
       .then(setVolunteers)
       .catch(console.error);
 
-    fetch(`http://192.168.101.180:5000/api/tasks/${supervisorId}`)
+    fetch(`http://192.168.100.47:5000/api/tasks/${supervisorId}`)
       .then(res => res.json())
       .then(setTasks)
       .catch(console.error);
@@ -34,7 +34,7 @@ const App = () => {
   const handleSubmit = () => {
     if (!score || isNaN(score)) return Alert.alert("Enter a valid score");
 
-    fetch('http://192.168.101.180:5000/api/grades/add', {
+    fetch('http://192.168.100.47:5000/api/grades/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

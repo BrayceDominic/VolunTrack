@@ -38,7 +38,7 @@ ${recommendations}
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Link href="/volunteer/VolunteerDashboard" style={styles.backButton}>
-                        <Icon name="arrow-back" size={24} color="white" />
+                        <Icon name="arrow-back" size={24} color="#004158" />
                     </Link>
                     <Text style={styles.headerTitle}>Task Report</Text>
                 </View>
@@ -82,14 +82,14 @@ ${recommendations}
 const styles = StyleSheet.create({
     container: {
         padding: 20,
-        backgroundColor: '#004158',
+        backgroundColor: 'tan',
         color: 'tan',
     },
     title: {
         fontSize: 25,
         marginTop: 25,
         marginBottom: 20,
-        color: 'white',
+        color: '#004158',
         textAlign: 'center',
         fontWeight: 'bold',
     },
@@ -107,14 +107,14 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: 'white',
+        color: '#004158',
     },
     input: {
         // borderWidth: 1,
         padding: 5,
         marginBottom: 15,
         backgroundColor: 'white',
-        borderRadius: 15,
+        borderRadius: 5,
     },
     largeInput: {
         height: 180,
@@ -122,14 +122,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     button: {
-        backgroundColor: 'white',
+        backgroundColor: '#004158',
         padding: 20,
         borderRadius: 10,
         alignItems: 'center',
         marginTop: 10,
     },
     buttonText: {
-        color: '#004158',
+        color: '#ffffff',
         fontSize: 18,
         fontWeight: 'bold',
     },

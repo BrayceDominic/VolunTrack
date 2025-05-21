@@ -1,11 +1,16 @@
 import React from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons'; // Icon library
+import { Link } from "expo-router";
 import { View, Text, ScrollView, TouchableOpacity, Image, Linking, StyleSheet } from 'react-native';
-
 const App = () => {
   const videoResources = [
     {
       title: 'How to Be a Professional at Work',
       videoId: 'MimobT484_4',
+    },
+    {
+      title: 'Microsoft Office Specialist Program Overview',
+      videoId: 'EqeZfgfipXg',
     },
     {
       title: 'Internship Journal',
@@ -18,10 +23,6 @@ const App = () => {
     {
       title: 'How to use LinkedIn to land a job',
       videoId: 'AJocoZEV7ew',
-    },
-    {
-      title: 'Microsoft Office Specialist Program Overview',
-      videoId: 'EqeZfgfipXg',
     },
   ];
 
@@ -38,7 +39,10 @@ const App = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.header}>📘 Professional Growth Resources</Text>
+      <Link href="/volunteer/VolunteerDashboard" style={styles.backButton}>
+      <Icon name="arrow-back" size={24} color="#004158" />
+      </Link>
+      <Text style={styles.header}> Professional Growth Resources</Text>
 
       {/* <Text style={styles.section}>🎥 YouTube Videos</Text> */}
       {videoResources.map((item, index) => (
@@ -75,6 +79,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'tan',
     padding: 16,
   },
+  backButton: {
+        marginRight: 16,
+  },
   header: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -93,7 +100,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
     borderRadius: 16,
-    padding: 12,
+    padding: 8,
     marginBottom: 16,
     shadowColor: '#000',
     shadowOpacity: 0.1,

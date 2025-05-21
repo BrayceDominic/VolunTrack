@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'tan',
     padding: 16,
     paddingBottom: 30,
-    marginTop: 30,
+    flex: 1,
   },
   header: {
     fontSize: 24,

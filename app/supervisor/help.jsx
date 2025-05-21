@@ -84,7 +84,12 @@ const openLiveChat = () => {
       <Text style={styles.contact}>📧 support@voluntrack.com</Text>
       <Text style={styles.contact}>📞 +255-717-933-892</Text>
 
-      <View style={styles.iconRow}>
+      <View style={styles.socialLinks}>
+        <Icon name="whatsapp" size={30} color="#004158" onPress={() => openLink('https://whatsapp.com')} style={styles.icon} />
+        <Icon name="telegram" size={30} color="#004158" onPress={() => openLink('https://telegram.com')} style={styles.icon} />
+      </View>
+
+      {/* <View style={styles.iconRow}>
         <Pressable onPress={openWhatsApp} style={styles.iconBox}>
           <Icon name="whatsapp" size={50} color="#25D366" />
           <Text style={styles.iconLabel}>WhatsApp</Text>
@@ -94,7 +99,7 @@ const openLiveChat = () => {
           <Icon name="send" size={50} color="#0088cc" />
           <Text style={styles.iconLabel}>Telegram</Text>
         </Pressable>
-      </View>
+      </View> */}
 
       {/* <Button title="Live Chat" onPress={openLiveChat} /> */}
 
@@ -132,7 +137,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'tan',
     padding: 16,
     paddingBottom: 30,
-    marginTop: 30,
   },
   header: {
     fontSize: 24,

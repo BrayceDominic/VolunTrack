@@ -45,8 +45,18 @@ const Attendance = {
     `;
     const [rows] = await db.query(query, [supervisor_id]);
     return rows;
-  }
+  },
+
+  getAttendanceByVolunteerId: async (volunteer_id) => {
+  const query = `
+    SELECT * 
+    FROM attendance 
+    WHERE volunteer_id = ? 
+    ORDER BY timestamp DESC
+  `;
+  const [rows] = await db.query(query, [volunteer_id]);
+  return rows;
+}
 };
 
-// ✅ Export after the object is fully closed
 module.exports = Attendance;

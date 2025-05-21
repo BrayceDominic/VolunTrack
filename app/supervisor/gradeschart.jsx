@@ -17,7 +17,7 @@ const App = () => {
   const [taskDetails, setTaskDetails] = useState([]); // new
 
   useEffect(() => {
-    fetch(`http://192.168.101.180:5000/api/grades/supervisor/${supervisorId}`)
+    fetch(`http://192.168.100.47:5000/api/grades/supervisor/${supervisorId}`)
       .then(res => res.json())
       .then(json => {
         const names = json.map(item => item.volunteer_name);
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
-    backgroundColor: '#f0f8ff',
+    backgroundColor: 'tan',
   },
   header: {
     fontSize: 22,

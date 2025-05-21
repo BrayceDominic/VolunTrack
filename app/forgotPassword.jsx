@@ -12,7 +12,7 @@ const App = () => {
 
   const handleResetPassword = async () => {
     try {
-      const response = await fetch('https://192.168.101.180:5000/api/password/reset-password', {
+      const response = await fetch('http://192.168.100.47:5000/api/password/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

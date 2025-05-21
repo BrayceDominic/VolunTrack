@@ -10,7 +10,7 @@ const app = () => {
 
   const fetchVolunteerTasks = async () => {
     try {
-      const res = await axios.get(`http://192.168.101.180:5000/api/volunteers/${volunteerId}`);
+      const res = await axios.get(`http://192.168.100.47:5000/api/volunteers/${volunteerId}`);
       setTasks(res.data);
     } catch (err) {
       console.error("❌ Failed to fetch volunteer tasks", err);
@@ -58,10 +58,10 @@ const app = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#004158", padding: 16},
-  header: { fontSize: 22, fontWeight: "bold", color: "white", marginBottom: 25, textAlign: "center" },
+  container: { flex: 1, backgroundColor: "tan", padding: 16},
+  header: { fontSize: 22, fontWeight: "bold", color: "#004158", marginBottom: 25, textAlign: "center" },
   detailBox: {
-    backgroundColor: "tan",
+    backgroundColor: "#004158",
     padding: 16,
     borderRadius: 10,
     shadowColor: "#000",
@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 3,
   },
-  label: { fontWeight: "bold", fontSize: 20, marginTop: 20, color: "#004158" },
-  value: { fontSize: 16, marginTop: 4, color: "#004158" },
+  label: { fontWeight: "bold", fontSize: 20, marginTop: 20, color: "#ffffff" },
+  value: { fontSize: 16, marginTop: 4, color: "#ffffff" },
   error: { marginTop: 50, textAlign: "center", fontSize: 16, color: "red" },
   taskBox: {
     marginTop: 10,
@@ -82,11 +82,11 @@ const styles = StyleSheet.create({
   taskTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#004158",
+    color: "#ffffff",
   },
   taskDetail: {
     fontSize: 14,
-    color: "#004158",
+    color: "#ffffff",
   },
 });
 

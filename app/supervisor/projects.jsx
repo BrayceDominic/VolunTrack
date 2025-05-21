@@ -26,7 +26,7 @@ console.log("Supervisor ID being used:", supervisor_id);
     
     const fetchProjects = async () => {
         try {
-            const res = await fetch(`http://192.168.101.180:5000/api/projects/${Number(supervisor_id)}`);
+            const res = await fetch(`http://192.168.100.47:5000/api/projects/${Number(supervisor_id)}`);
             const data = await res.json();
             console.log("Fetched projects: ", data);
     
@@ -48,7 +48,7 @@ console.log("Supervisor ID being used:", supervisor_id);
 
         if (title && description && start_date && end_date) {
             try {
-                const response = await fetch("http://192.168.101.180:5000/api/projects/create", {
+                const response = await fetch("http://192.168.100.47:5000/api/projects/create", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         padding: 16,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
-        marginTop: 38,
+        marginTop: 4,
     },
     backButton: {
         marginRight: 16,

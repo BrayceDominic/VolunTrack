@@ -5,6 +5,8 @@ import {
 } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 import { useLocalSearchParams } from 'expo-router';
+import { Link } from 'expo-router';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -16,7 +18,7 @@ const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    fetch(`http://192.168.101.180:5000/api/grades/volunteer/${volunteerId}`)
+    fetch(`http://192.168.100.47:5000/api/grades/volunteer/${volunteerId}`)
       .then(res => res.json())
       .then(data => {
         setGrades(data);
@@ -42,6 +44,9 @@ const App = () => {
 
   return (
     <ScrollView style={styles.container}>
+      <Link href="/volunteer/VolunteerDashboard" style={styles.backButton}>
+          <Icon name="arrow-back" size={24} color="#004158" />
+        </Link>
       <Text style={styles.title}>📊 Your Task Performance</Text>
 
       {/* Chart Section */}
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
-    backgroundColor: '#f0faff',
+    backgroundColor: 'tan',
   },
   title: {
     fontSize: 22,

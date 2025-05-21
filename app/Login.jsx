@@ -22,7 +22,7 @@ const App = () => {
 
 
     try {
-      const response = await fetch('http://192.168.101.180:5000/api/auth/login', {
+      const response = await fetch('http://192.168.100.47:5000/api/auth/login', {
       // const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: {
@@ -91,7 +91,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <Link href="/" style={styles.home}>
-        <Icon name="home" size={30} color="#004158" />
+        <Icon name="home" size={40} color="#004158" />
       </Link>
 
       <Image source={require("@/assets/images/vt.jpg")} style={styles.image} />
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 20,
     backgroundColor: 'tan',
-    marginTop: 25,
+    // marginTop: 25,
   },
   sg: {
     fontSize: 15,
@@ -175,8 +175,8 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   home: {
-    marginTop: -150,
-    marginBottom: 50,
+    marginTop: -120,
+    marginBottom: 120,
   },
   passwordContainer: {
     flexDirection: 'row',
