@@ -23,7 +23,7 @@ const App = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.100.47:5000/api/attendance/mark', parsedData);
+      const response = await axios.post('http://192.168.100.47:5050/api/attendance/mark', parsedData);
 
       if (response.data && response.data.message === "Attendance marked successfully") {
         Alert.alert('Success', 'Attendance recorded.');

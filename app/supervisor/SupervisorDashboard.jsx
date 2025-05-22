@@ -39,7 +39,7 @@ const App = () => {
         }
 
         const res = await axios.get(
-          `http://192.168.100.47:5000/api/supervisors/${id}/volunteers`
+          `http://192.168.100.47:5050/api/supervisors/${id}/volunteers`
         );
         setVolunteers(res.data);
       } catch (err) {
@@ -138,7 +138,7 @@ const App = () => {
 
             <View style={styles.welcomeCard}>
               <Text style={styles.welcomeText}>
-                👋 {userName ? `Welcome, ${userName}!` : "Welcome!"}
+                {userName ? `Welcome, ${userName}!` : "Welcome!"}
               </Text>
             </View>
 

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   SafeAreaView,
+  TextInput,
   Dimensions
 } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,6 +24,7 @@ const App = () => {
   const [userId, setUserId] = useState('');
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -56,7 +58,7 @@ const App = () => {
         return;
       }
 
-      const res = await axios.get(`http://192.168.100.47:5000/api/volunteers/${id}`);
+      const res = await axios.get(`http://192.168.100.47:5050/api/volunteers/${id}`);
       setProjects(res.data);
     } catch (err) {
       console.error("❌ Failed to load data", err);
@@ -137,9 +139,31 @@ const App = () => {
       <FlatList
         ListHeaderComponent={
           <>
-            <Text style={styles.welcomeText}>
-              {userName ? `Welcome, ${userName}!` : 'Welcome!'}
-            </Text>
+            <TouchableOpacity
+            style={styles.notificationIcon}
+            onPress={() =>
+              router.push({
+                pathname: "/volunteer/notifications",
+                params: { volunteerId: userId },
+              })
+            }
+          >
+            <Ionicons name="notifications-outline" size={28} color="#004158" />
+          </TouchableOpacity>
+            
+            <View style={styles.welcomeCard}>
+              <Text style={styles.welcomeText}>
+                {userName ? `Welcome, ${userName}!` : "Welcome!"}
+              </Text>
+            </View>
+
+            <TextInput
+              placeholder="Search Quick Access..."
+              placeholderTextColor="#555"
+              value={searchTerm}
+              onChangeText={setSearchTerm}
+              style={styles.searchBar}
+            />
             <Text style={styles.sectionTitle}>ENROLLED PROJECTS</Text>
             {loading && <ActivityIndicator size="large" color="#004158" />}
           </>
@@ -189,9 +213,6 @@ const App = () => {
         <TouchableOpacity onPress={() => router.push({ pathname: "/volunteer/VolunteerDashboard", params: { volunteerId: userId } })}>
           <Ionicons name="home-outline" size={25} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push({ pathname: "/volunteer/notifications", params: { volunteerId: userId } })}>
-          <Ionicons name="notifications-outline" size={25} color="#fff" />
-        </TouchableOpacity>
         <TouchableOpacity onPress={() => router.push({ pathname: "/volunteer/profiles", params: { volunteerId: userId } })}>
           <Ionicons name="person-outline" size={25} color="#fff" />
         </TouchableOpacity>
@@ -212,6 +233,24 @@ const styles = StyleSheet.create({
     color: "#004158",
     marginBottom: 10,
     marginTop: 30,
+  },
+  welcomeCard: {
+    backgroundColor: "#004158",
+    marginHorizontal: 19,
+    marginTop: 34,
+    borderRadius: 15,
+    padding: 15,
+    shadowColor: "#000",
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 6,
+    elevation: 5,
+  },
+  welcomeText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff",
+    textAlign: "center",
   },
   sectionTitle: {
     fontSize: 18,
@@ -288,6 +327,29 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderTopWidth: 1,
     borderTopColor: "#ddd",
+  },
+  searchBar: {
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    marginHorizontal: 16,
+    marginTop: 20,
+    marginBottom: 10,
+    fontSize: 16,
+    color: "#333",
+    borderColor: "#004158",
+    borderWidth: 1,
+  },
+   notificationIcon: {
+    position: "absolute",
+    top: -10,
+    left: 340,
+    zIndex: 10,
+    backgroundColor: "white",
+    padding: 6,
+    borderRadius: 50,
+    elevation: 3,
   },
 });
 

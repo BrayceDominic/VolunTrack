@@ -28,7 +28,7 @@ const app = () => {
 
   const fetchVolunteers = async () => {
     try {
-      const response = await axios.get(`http://192.168.100.47:5000/api/supervisors/${supervisor_id}/volunteers`);
+      const response = await axios.get(`http://192.168.100.47:5050/api/supervisors/${supervisor_id}/volunteers`);
       setVolunteers(response.data);
     } catch (error) {
       console.error('Error fetching volunteers:', error);
@@ -37,7 +37,7 @@ const app = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`http://192.168.100.47:5000/api/tasks/${supervisor_id}`);
+      const response = await axios.get(`http://192.168.100.47:5050/api/tasks/${supervisor_id}`);
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -47,7 +47,7 @@ const app = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(`http://192.168.100.47:5000/api/projects/${supervisor_id}`);
+      const response = await axios.get(`http://192.168.100.47:5050/api/projects/${supervisor_id}`);
       setProjects(response.data);
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -62,7 +62,7 @@ const app = () => {
     }
   
     try {
-      const response = await axios.post('http://192.168.100.47:5000/api/tasks/create', {
+      const response = await axios.post('http://192.168.100.47:5050/api/tasks/create', {
         title: newTask,
         description: description,
         due_date: dueDate,

@@ -22,7 +22,7 @@ const App = () => {
 
 
     try {
-      const response = await fetch('http://192.168.100.47:5000/api/auth/login', {
+      const response = await fetch('http://192.168.100.47:5050/api/auth/login', {
       // const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: {

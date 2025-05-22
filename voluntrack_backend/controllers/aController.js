@@ -32,14 +32,14 @@ exports.getAttendanceBySupervisor = async (req, res) => {
   }
 };
 
-exports.getAttendanceByVolunteer = async (req, res) => {
-  const { volunteer_id } = req.params;
+// exports.getAttendanceByVolunteer = async (req, res) => {
+//   const { volunteer_id } = req.params;
 
-  try {
-    const records = await Attendance.getAttendanceByVolunteerId(volunteer_id);
-    res.status(200).json(records);
-  } catch (err) {
-    console.error('Error fetching attendance:', err);
-    res.status(500).json({ message: 'Server error' });
-  }
-};
+//   try {
+//     const records = await Attendance.getAttendanceByVolunteerId(volunteer_id);
+//     res.status(200).json(records);
+//   } catch (err) {
+//     console.error('Error fetching attendance:', err);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };

@@ -10,7 +10,7 @@ const app = () => {
 
   const fetchVolunteerTasks = async () => {
     try {
-      const res = await axios.get(`http://192.168.100.47:5000/api/volunteers/${volunteerId}`);
+      const res = await axios.get(`http://192.168.100.47:5050/api/volunteers/${volunteerId}`);
       setTasks(res.data);
     } catch (err) {
       console.error("❌ Failed to fetch volunteer tasks", err);
