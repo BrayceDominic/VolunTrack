@@ -17,7 +17,7 @@ const App = () => {
   const [taskDetails, setTaskDetails] = useState([]); // new
 
   useEffect(() => {
-    fetch(`http://192.168.100.47:5050/api/grades/supervisor/${supervisorId}`)
+    fetch(`http://192.168.100.239:5050/api/grades/supervisor/${supervisorId}`)
       .then(res => res.json())
       .then(json => {
         const names = json.map(item => item.volunteer_name);

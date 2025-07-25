@@ -9,6 +9,8 @@ import {
   SafeAreaView,
   TextInput,
   Linking,
+  StatusBar,
+  Dimensions,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -39,7 +41,7 @@ const App = () => {
         }
 
         const res = await axios.get(
-          `http://192.168.100.47:5050/api/supervisors/${id}/volunteers`
+          `http://192.168.100.239:5050/api/supervisors/${id}/volunteers`
         );
         setVolunteers(res.data);
       } catch (err) {
@@ -121,6 +123,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="#004158" barStyle="light-content" />
       <FlatList
         ListHeaderComponent={
           <View>
@@ -171,13 +174,14 @@ const App = () => {
         renderItem={({ item }) => (
           <Link
             href={{
-              pathname: "/supervisor/volunteerDetails",
+              pathname: "/supervisor/SupervisorDashboard",
               params: { volunteerId: item.id },
             }}
             asChild
           >
             <TouchableOpacity style={styles.volunteerCard}>
               <Text style={styles.volunteerName}>👤 {item.name}</Text>
+              <Text style={styles.volunteerName}>ID Number: {item.id}</Text>
               <Text
                 style={styles.volunteerEmail}
                 onPress={() => Linking.openURL(`mailto:${item.email}`)}
@@ -231,7 +235,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "tan" },
+  container: { flex: 1, backgroundColor: "tan",marginBottom: 10,},
   feedContainer: { padding: 16, paddingBottom: 100 },
   searchBar: {
     backgroundColor: "#fff",
@@ -336,7 +340,7 @@ const styles = StyleSheet.create({
   },
   notificationIcon: {
     position: "absolute",
-    top: -10,
+    top: 10,
     left: 340,
     zIndex: 10,
     backgroundColor: "white",

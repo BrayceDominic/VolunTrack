@@ -47,7 +47,7 @@ const AttendanceScreen = () => {
 
   const fetchAttendance = async () => {
     try {
-      const res = await axios.get(`http://192.168.100.47:5050/api/attendance/${supervisorId}`);
+      const res = await axios.get(`http://192.168.100.239:5050/api/attendance/${supervisorId}`);
       setAttendanceRecords(res.data);
     } catch (error) {
       console.error('Error fetching attendance:', error);

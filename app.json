@@ -4,7 +4,7 @@
     "slug": "VolunTrack",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/vt.jpg",
+    "icon": "./assets/images/vt.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -12,11 +12,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.braycedominic.voluntrack"
-      // "adaptiveIcon": {
-      //   "foregroundImage": "./assets/images/adaptive-icon.png",
-      //   "backgroundColor": "#ffffff"
-      // }
+      "package": "com.braycedominic.voluntrack",
+       "permissions": ["INTERNET"]
     },
     "web": {
       "bundler": "metro",
@@ -28,14 +25,21 @@
       [
         "expo-splash-screen",
         {
-      "image": "./assets/images/volun2.webp",
-      "resizeMode": "contain",
-      "backgroundColor": "tan"
-    }
+          "image": "./assets/images/vt.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#D2B48C"
+        }
       ]
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e3c5bd20-58dc-41f5-850d-03ac75c3b72e"
+      }
+    },
+    "owner": "braycedominic11"
   }
 }

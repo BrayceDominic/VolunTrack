@@ -13,7 +13,7 @@ const app = () => {
   const [loading, setLoading] = useState(false);
   const [replies, setReplies] = useState([]);
 
-  const API = 'http://192.168.100.47:5050';
+  const API = 'http://192.168.100.239:5050';
 
   useEffect(() => {
     getVolunteerId();

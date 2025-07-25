@@ -5,7 +5,6 @@ import { Link } from 'expo-router';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // Icon library
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Notifications from 'expo-notifications'; // Import Notifications
 
 const App = () => {
   const [email, setEmail] = useState('');
@@ -22,8 +21,8 @@ const App = () => {
 
 
     try {
-      const response = await fetch('http://192.168.100.47:5050/api/auth/login', {
-      // const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch('http://192.168.100.239:5050/api/auth/login', {
+      // const response = await fetch('http://192.168.101.114:5000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +93,7 @@ const App = () => {
         <Icon name="home" size={40} color="#004158" />
       </Link>
 
-      <Image source={require("@/assets/images/vt.jpg")} style={styles.image} />
+      <Image source={require("@/assets/images/vt.png")} style={styles.image} />
 
 
       <Text style={styles.title}>Login</Text>

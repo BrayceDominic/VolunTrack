@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'tan',
     padding: 16,
+    marginTop: 20,
   },
   backButton: {
         marginRight: 16,

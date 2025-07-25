@@ -1,14 +1,15 @@
-import { View,Text, StyleSheet,Pressable, Image} from "react-native";
+import { View,Text, StyleSheet,Pressable, Image, StatusBar} from "react-native";
 import { Link } from "expo-router";
 const App = () => {
   console.log("✅ Index screen rendered"); // This should show up in logs
   return (
     <View style = {styles.container}>
+       <StatusBar backgroundColor="#004158" barStyle="light-content" />
       <View style={styles.separator}/>
       {/* <Text style = {styles.title}> Get Things Done With</Text> */}
       <Text style = {styles.title2}>VolunTrack</Text> 
 
-      <Image source={require("@/assets/images/vt.jpg")} style={styles.image} />
+      <Image source={require("@/assets/images/vt.png")} style={styles.image} />
 
       <Text style = {styles.welcome}> Empowering organizations and volunteers to create a lasting impact together.</Text>
    {/* <Link href="/supervisor/SupervisorDashboard" style = {styles.link2} asChild> */}

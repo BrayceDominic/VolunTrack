@@ -18,7 +18,7 @@ const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    fetch(`http://192.168.100.47:5050/api/grades/volunteer/${volunteerId}`)
+    fetch(`http://192.168.100.239:5050/api/grades/volunteer/${volunteerId}`)
       .then(res => res.json())
       .then(data => {
         setGrades(data);
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     backgroundColor: 'tan',
+    marginTop: 25,
   },
   title: {
     fontSize: 22,

@@ -28,7 +28,7 @@ const handleRegister = async () => {
   };
 
   try {
-    const response = await fetch('http://localhost:5000/api/auth/register', {
+    const response = await fetch('http://192.168.100.239:5050/api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const handleRegister = async () => {
 
   return (
     <View style={styles.container}>
-            <Image source={require("@/assets/images/vt.jpg")} style={styles.image} />
+            <Image source={require("@/assets/images/vt.png")} style={styles.image} />
 
       <TouchableOpacity onPress={() => router.push('/')} style={styles.drawerItem}>
         <Icon name="home" size={35} color="#004158" />

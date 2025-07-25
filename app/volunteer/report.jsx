@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Linking } from "react-native";
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Linking, ScrollView, SafeAreaView, StatusBar, Platform } from "react-native";
 import { Link } from "expo-router";
-import { ScrollView } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialIcons'; // Icon library
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const App = () => {
     const [report, setReport] = useState({
@@ -34,21 +33,25 @@ ${recommendations}
     };
 
     return (
-        <ScrollView>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Link href="/volunteer/VolunteerDashboard" style={styles.backButton}>
-                        <Icon name="arrow-back" size={24} color="#004158" />
-                    </Link>
-                    <Text style={styles.headerTitle}>Task Report</Text>
-                </View>
+        <SafeAreaView style={styles.safeArea}>
+            <StatusBar
+                backgroundColor="#004158"
+                barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
+            />
+            <View style={styles.header}>
+                <Link href="/volunteer/VolunteerDashboard" style={styles.backButton}>
+                    <Icon name="arrow-back" size={24} color="#004158" />
+                </Link>
+                <Text style={styles.headerTitle}>Task Report</Text>
+            </View>
+
+            <ScrollView contentContainerStyle={styles.scrollContent}>
                 <TextInput
                     style={styles.input}
                     placeholder="Week Start Date (DD-MM-YYYY)"
                     value={report.week_start}
                     onChangeText={text => setReport({ ...report, week_start: text })}
                 />
-
                 <TextInput
                     style={[styles.input, styles.largeInput]}
                     placeholder="Tasks completed"
@@ -60,7 +63,7 @@ ${recommendations}
                     style={[styles.input, styles.largeInput]}
                     placeholder="Challenges"
                     multiline
-                    value={report.challenges} // Fix: Use report.challenges
+                    value={report.challenges}
                     onChangeText={text => setReport({ ...report, challenges: text })}
                 />
                 <TextInput
@@ -70,28 +73,22 @@ ${recommendations}
                     value={report.recommendations}
                     onChangeText={text => setReport({ ...report, recommendations: text })}
                 />
+            </ScrollView>
 
+            <View style={styles.bottomBar}>
                 <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                     <Text style={styles.buttonText}>Submit Report</Text>
                 </TouchableOpacity>
             </View>
-        </ScrollView>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 20,
+    safeArea: {
+        flex: 1,
         backgroundColor: 'tan',
-        color: 'tan',
-    },
-    title: {
-        fontSize: 25,
-        marginTop: 25,
-        marginBottom: 20,
-        color: '#004158',
-        textAlign: 'center',
-        fontWeight: 'bold',
+        marginTop: 26,
     },
     header: {
         flexDirection: 'row',
@@ -99,7 +96,7 @@ const styles = StyleSheet.create({
         padding: 16,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
-        marginTop: 38,
+        backgroundColor: 'tan',
     },
     backButton: {
         marginRight: 16,
@@ -109,8 +106,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#004158',
     },
+    scrollContent: {
+        padding: 20,
+        paddingBottom: 120, // ensures content is above bottom bar
+    },
     input: {
-        // borderWidth: 1,
         padding: 5,
         marginBottom: 15,
         backgroundColor: 'white',
@@ -121,12 +121,21 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top',
         backgroundColor: 'white',
     },
+    bottomBar: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: 10,
+        backgroundColor: 'tan',
+        borderTopWidth: 1,
+        borderTopColor: '#ccc',
+    },
     button: {
         backgroundColor: '#004158',
         padding: 20,
         borderRadius: 10,
         alignItems: 'center',
-        marginTop: 10,
     },
     buttonText: {
         color: '#ffffff',

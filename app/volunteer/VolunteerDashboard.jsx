@@ -8,9 +8,10 @@ import {
   ActivityIndicator,
   SafeAreaView,
   TextInput,
-  Dimensions
+  Dimensions,
+  StatusBar,
 } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter, Link } from "expo-router";
@@ -20,8 +21,8 @@ const screenWidth = Dimensions.get("window").width;
 
 const App = () => {
   const router = useRouter();
-  const [userName, setUserName] = useState('');
-  const [userId, setUserId] = useState('');
+  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState("");
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,16 +30,16 @@ const App = () => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate();
-    const month = date.toLocaleString('default', { month: 'long' });
+    const month = date.toLocaleString("default", { month: "long" });
     const year = date.getFullYear();
 
     const getOrdinal = (n) => {
-      if (n > 3 && n < 21) return 'th';
+      if (n > 3 && n < 21) return "th";
       switch (n % 10) {
-        case 1: return 'st';
-        case 2: return 'nd';
-        case 3: return 'rd';
-        default: return 'th';
+        case 1: return "st";
+        case 2: return "nd";
+        case 3: return "rd";
+        default: return "th";
       }
     };
 
@@ -47,8 +48,8 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const name = await AsyncStorage.getItem('userName');
-      const id = await AsyncStorage.getItem('userId');
+      const name = await AsyncStorage.getItem("userName");
+      const id = await AsyncStorage.getItem("userId");
 
       if (name) setUserName(name);
       if (id) setUserId(id);
@@ -58,7 +59,7 @@ const App = () => {
         return;
       }
 
-      const res = await axios.get(`http://192.168.100.47:5050/api/volunteers/${id}`);
+      const res = await axios.get(`http://192.168.100.239:5050/api/volunteers/${id}`);
       setProjects(res.data);
     } catch (err) {
       console.error("❌ Failed to load data", err);
@@ -124,11 +125,10 @@ const App = () => {
         await AsyncStorage.setItem("notifications", JSON.stringify(notifications));
         await AsyncStorage.clear();
         router.replace("Login");
-      }
+      },
     },
   ];
 
-  // Split Quick Access items into rows of 2
   const chunkedLinks = [];
   for (let i = 0; i < drawerLinks.length; i += 2) {
     chunkedLinks.push(drawerLinks.slice(i, i + 2));
@@ -136,34 +136,35 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="#004158" barStyle="light-content" />
       <FlatList
         ListHeaderComponent={
           <>
             <TouchableOpacity
-            style={styles.notificationIcon}
-            onPress={() =>
-              router.push({
-                pathname: "/volunteer/notifications",
-                params: { volunteerId: userId },
-              })
-            }
-          >
-            <Ionicons name="notifications-outline" size={28} color="#004158" />
-          </TouchableOpacity>
-            
+              style={styles.notificationIcon}
+              onPress={() =>
+                router.push({
+                  pathname: "/volunteer/notifications",
+                  params: { volunteerId: userId },
+                })
+              }
+            >
+              <Ionicons name="notifications-outline" size={28} color="#004158" />
+            </TouchableOpacity>
+
             <View style={styles.welcomeCard}>
               <Text style={styles.welcomeText}>
                 {userName ? `Welcome, ${userName}!` : "Welcome!"}
               </Text>
             </View>
 
-            <TextInput
+            {/*<TextInput
               placeholder="Search Quick Access..."
               placeholderTextColor="#555"
               value={searchTerm}
               onChangeText={setSearchTerm}
               style={styles.searchBar}
-            />
+            />*/}
             <Text style={styles.sectionTitle}>ENROLLED PROJECTS</Text>
             {loading && <ActivityIndicator size="large" color="#004158" />}
           </>
@@ -179,7 +180,6 @@ const App = () => {
           >
             <TouchableOpacity style={styles.projectCard}>
               <Text style={styles.projectName}>📊 {item.project_name}</Text>
-              {/* <Text style={styles.task_title}>TASK ID: {item.task_id}</Text> */}
               <Text style={styles.task_title}>{item.task_title}</Text>
               <Text style={styles.task_description}>📋 {item.task_description}</Text>
               <Text style={styles.due_date}>📅 DUE: {formatDate(item.due_date)}</Text>
@@ -191,10 +191,10 @@ const App = () => {
           <>
             <Text style={styles.sectionTitle}>Quick Access</Text>
             {chunkedLinks.map((row, rowIndex) => (
-              <View key={rowIndex} style={styles.quickAccessRow}>
-                {row.map((link) => (
+              <View key={`row-${rowIndex}`} style={styles.quickAccessRow}>
+                {row.map((link, linkIndex) => (
                   <TouchableOpacity
-                    key={link.title}
+                    key={`link-${rowIndex}-${linkIndex}-${link.title}`}
                     style={styles.quickAccessCard}
                     onPress={link.onPress}
                   >
@@ -226,18 +226,11 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "tan" },
-  feedContainer: { padding: 16, paddingBottom: 100 },
-  welcomeText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#004158",
-    marginBottom: 10,
-    marginTop: 30,
-  },
+  feedContainer: { padding: 16, paddingBottom: 120 },
   welcomeCard: {
     backgroundColor: "#004158",
     marginHorizontal: 19,
-    marginTop: 34,
+    marginTop: 60,
     borderRadius: 15,
     padding: 15,
     shadowColor: "#000",
@@ -251,6 +244,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
     textAlign: "center",
+  },
+  searchBar: {
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 10,
+    marginVertical: 12,
+    marginHorizontal: 16,
   },
   sectionTitle: {
     fontSize: 18,
@@ -312,38 +312,27 @@ const styles = StyleSheet.create({
   quickAccessText: {
     color: "#004158",
     fontSize: 14,
-    fontWeight: "500",
-    marginTop: 5,
-    textAlign: "center",
+    fontWeight: "600",
+    marginTop: 6,
   },
   bottomBar: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingBottom: 20,
+    backgroundColor: "#004158",
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    backgroundColor: "#004158",
-    paddingVertical: 10,
-    borderTopWidth: 1,
-    borderTopColor: "#ddd",
+    elevation: 10,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
-  searchBar: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    marginHorizontal: 16,
-    marginTop: 20,
-    marginBottom: 10,
-    fontSize: 16,
-    color: "#333",
-    borderColor: "#004158",
-    borderWidth: 1,
-  },
-   notificationIcon: {
+  notificationIcon: {
     position: "absolute",
-    top: -10,
+    top: 14,
     left: 340,
     zIndex: 10,
     backgroundColor: "white",

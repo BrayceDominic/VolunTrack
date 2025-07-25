@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 30,
     flex: 1,
+    marginTop: 25,
   },
   header: {
     fontSize: 24,
