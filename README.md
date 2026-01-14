@@ -2,6 +2,9 @@ VolunTrack App
 
 VolunTrack is a mobile application designed to help organizations manage and monitor their volunteers efficiently. Built using React Native(Expo Go) (frontend) and Node.js with MySQL (backend), the app allows supervisors and volunteers to collaborate on projects, track attendance, send feedback, and manage tasks.
 
+Below are some screens:
+
+
 🌟 Features
 
 For Volunteers:
@@ -26,5 +29,4 @@ For Supervisors:
 | Database    | MySQL                    |
 | Auth        | JWT (JSON Web Tokens)    |
 | Others      | Axios, AsyncStorage      |
-
 
